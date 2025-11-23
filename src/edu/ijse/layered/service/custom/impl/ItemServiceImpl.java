@@ -4,6 +4,8 @@
  */
 package edu.ijse.layered.service.custom.impl;
 
+import edu.ijse.layered.dao.DaoFactory;
+import edu.ijse.layered.dao.custom.ItemDao;
 import edu.ijse.layered.dto.ItemDto;
 import edu.ijse.layered.entity.ItemEntity;
 import edu.ijse.layered.service.custom.ItemService;
@@ -14,27 +16,29 @@ import java.util.ArrayList;
  * @author Anjana
  */
 public class ItemServiceImpl implements ItemService{
+    
+    private ItemDao itemDao = (ItemDao) DaoFactory.getInstance().getDao(DaoFactory.DaoTypes.ITEM);
 
     @Override
     public String saveItem(ItemDto itemDto) throws Exception {
         ItemEntity entity = getItemEntity(itemDto);
-        return null;
+        return itemDao.save(entity) ? "Success" : "Fail";
     }
 
     @Override
     public String updateItem(ItemDto itemDto) throws Exception {
         ItemEntity entity = getItemEntity(itemDto);
-        return null;
+        return itemDao.update(entity) ? "Success" : "Fail";
     }
 
     @Override
     public String deleteItem(String code) throws Exception {
-        return null;
+        return itemDao.delete(code) ? "Success" : "Fail";
     }
 
     @Override
     public ItemDto searchItem(String code) throws Exception {
-        ItemEntity itemEntity = null;
+        ItemEntity itemEntity = itemDao.search(code);
         if(itemEntity != null){
             return getItemDto(itemEntity);
         }
@@ -44,7 +48,7 @@ public class ItemServiceImpl implements ItemService{
     @Override
     public ArrayList<ItemDto> getAll() throws Exception {
         ArrayList<ItemDto> itemDtos = new ArrayList<>();
-        ArrayList<ItemEntity> itemEntities = null;
+        ArrayList<ItemEntity> itemEntities = itemDao.getAll();
         for (ItemEntity itemEntity : itemEntities) {
             itemDtos.add(getItemDto(itemEntity));
         }
