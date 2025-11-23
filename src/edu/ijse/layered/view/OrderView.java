@@ -6,9 +6,11 @@ package edu.ijse.layered.view;
 
 import edu.ijse.layered.controller.CustomerController;
 import edu.ijse.layered.controller.ItemController;
+import edu.ijse.layered.controller.OrderController;
 import edu.ijse.layered.dto.CustomerDto;
 import edu.ijse.layered.dto.ItemDto;
 import edu.ijse.layered.dto.OrderDetailDto;
+import edu.ijse.layered.dto.OrderDto;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,7 +25,7 @@ public class OrderView extends javax.swing.JFrame {
 
     private CustomerController customerController = new CustomerController();
     private ItemController itemController = new ItemController();
-    //private OrderController orderController = new OrderController();
+    private OrderController orderController = new OrderController();
     
     private ArrayList<OrderDetailDto> orderDetailDtos = new ArrayList<>();
 
@@ -334,16 +336,16 @@ public class OrderView extends javax.swing.JFrame {
     }
 
     private void placeOrder() {
-//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-//        String dateString = sdf.format(new Date());
-//       
-//        OrderDto orderDto = new OrderDto(txtOId.getText(), dateString, txtCid.getText(), orderDetailDtos);
-//        
-//        try {
-//            String resp = orderController.placeOrder(orderDto);
-//            JOptionPane.showMessageDialog(this, resp);
-//        } catch (Exception e) {
-//            JOptionPane.showMessageDialog(this, e.getMessage());
-//        }
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String dateString = sdf.format(new Date());
+       
+        OrderDto orderDto = new OrderDto(txtOId.getText(), dateString, txtCid.getText(), orderDetailDtos);
+        
+        try {
+            String resp = orderController.placeOrder(orderDto);
+            JOptionPane.showMessageDialog(this, resp);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
     }
 }

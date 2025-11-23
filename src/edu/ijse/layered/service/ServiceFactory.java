@@ -6,6 +6,7 @@ package edu.ijse.layered.service;
 
 import edu.ijse.layered.service.custom.impl.CustomerServiceImpl;
 import edu.ijse.layered.service.custom.impl.ItemServiceImpl;
+import edu.ijse.layered.service.custom.impl.OrderServiceImpl;
 
 /**
  *
@@ -31,7 +32,7 @@ public class ServiceFactory {
             case CUSTOMER:
                 return new CustomerServiceImpl();
             case ORDER:
-                return null;
+                return new OrderServiceImpl();
             default:
                 throw new AssertionError();
         }
