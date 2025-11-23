@@ -17,7 +17,7 @@ public class ItemServiceImpl implements ItemService{
 
     @Override
     public String saveItem(ItemDto itemDto) throws Exception {
-        
+        ItemEntity entity = getItemEntity(itemDto);
         return null;
     }
 
