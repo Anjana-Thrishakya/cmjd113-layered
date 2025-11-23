@@ -4,6 +4,8 @@
  */
 package edu.ijse.layered.service.custom.impl;
 
+import edu.ijse.layered.dao.DaoFactory;
+import edu.ijse.layered.dao.custom.CustomerDao;
 import edu.ijse.layered.dto.CustomerDto;
 import edu.ijse.layered.entity.CustomerEntity;
 import edu.ijse.layered.service.custom.CustomerService;
@@ -15,26 +17,28 @@ import java.util.ArrayList;
  */
 public class CustomerServiceImpl implements CustomerService {
     
+    private CustomerDao customerDao = (CustomerDao) DaoFactory.getInstance().getDao(DaoFactory.DaoTypes.CUSTOMER);
+    
     @Override
     public String saveCustomer(CustomerDto customerDto) throws Exception {
         CustomerEntity entity = getCustomerEntity(customerDto);
-        return null;
+        return customerDao.save(entity) ? "Success" : "Fail";
     }
 
     @Override
     public String updateCustomer(CustomerDto customerDto) throws Exception {
         CustomerEntity entity = getCustomerEntity(customerDto);
-        return null;
+        return customerDao.update(entity) ? "Success" : "Fail";
     }
 
     @Override
     public String deleteCustomer(String code) throws Exception {
-        return null;
+        return customerDao.delete(code) ? "Success" : "Fail";
     }
 
     @Override
     public CustomerDto searchCustomer(String code) throws Exception {
-        CustomerEntity customerEntity = null;
+        CustomerEntity customerEntity = customerDao.search(code);
         if (customerEntity != null) {
             return getCustomerDto(customerEntity);
         }
@@ -45,7 +49,7 @@ public class CustomerServiceImpl implements CustomerService {
     public ArrayList<CustomerDto> getAll() throws Exception {
 
         ArrayList<CustomerDto> dtos = new ArrayList<>();
-        ArrayList<CustomerEntity> itemEntities = null;
+        ArrayList<CustomerEntity> itemEntities = customerDao.getAll();
 
         for (CustomerEntity entity : itemEntities) {
             dtos.add(getCustomerDto(entity));
